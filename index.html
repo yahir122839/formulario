@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+"archivo angel yahir"
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+</head>
+<link rel="stylesheet" href="estilos.css">
+<body>
+    <div class="contenedor">
+        <h1 style="color: rgb(0, 132, 139);text-align: center; font-size: 25px;
+        margin-bottom: 20px; font-family: helvetica;">Registro de Estudiantes ITH</h1>
+        <form id="formulario">
+            <div class="formulario">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre">
+            </div>
+
+            <div class="formulario">
+                <label for="apellido_paterno">Apellido Paterno:</label>
+                <input type="text" id="apellido_paterno" name="apellido_paterno">
+            </div>
+
+            <div class="formulario">
+                <label for="apellido_materno">Apellido Materno:</label>
+                <input type="text" id="apellido_materno" name="apellido_materno">
+            </div>
+
+            <div class="formulario">
+                <label for="sexo">Sexo:</label>
+                <select id="sexo" name="sexo">
+                    <option value="">Seleccione</option>
+                    <option value="M">Masculino</option>
+                    <option value="F">Femenino</option>
+                </select>
+            </div>
+
+            <div class="formulario">
+                <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento">
+            </div>
+
+            <div class="formulario">
+                <label for="correo">Correo Electrónico:</label>
+                <input type="email" id="correo" name="correo">
+            </div>
+
+            <div class="formulario">
+                <label for="celular">Celular:</label>
+                <input type="tel" id="celular" name="celular" placeholder="10 dígitos">
+            </div>
+
+            <div class="formulario">
+                <label for="direccion">Dirección:</label>
+                <textarea id="direccion" name="direccion" rows="3"></textarea>
+            </div>
+
+            <div class="formulario">
+                <label for="numeroControl">Número de Control:</label>
+                <input type="text" id="numeroControl" name="numeroControl">
+            </div>
+
+            <div class="formulario">
+                <label for="periodo">Periodo Escolar de Ingreso:</label>
+                <input type="text" id="periodo" name="periodo" placeholder="Ejemplo: 2023-2">
+            </div>
+
+            <div class="formulario">
+                <label for="carrera">Carrera:</label>
+                <input type="text" id="carrera" name="carrera">
+            </div>
+
+            <div class="formulario">
+                <button type="submit" name="registrar" value="registrar">Registrar</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+
+        function validarNumeroControl() {
+            const numeroControl = document.getElementById("numeroControl").value;
+            const regex = /^(2[0-9]|30)84\d{4}$/;
+
+            if (!regex.test(numeroControl)) {
+                alert("Número de control inválido");
+                return false;
+            }
+            return true;
+        }
+
+        document.getElementById('formulario').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const errores = [];
+
+            const nombre = document.getElementById('nombre').value.trim();
+            if (nombre.length < 3) errores.push('Debe ingresar el dato solicitado.');
+
+            const apellidoPaterno = document.getElementById('apellido_paterno').value.trim();
+            if (apellidoPaterno.length < 3) errores.push('Debe ingresar el dato solicitado.');
+
+            const apellidoMaterno = document.getElementById('apellido_materno').value.trim();
+            if (apellidoMaterno.length < 3) errores.push('Debe ingresar el dato solicitado.');
+
+            const sexo = document.getElementById('sexo').value;
+            if (!sexo) errores.push('Debe seleccionar el sexo.');
+
+            const fechaNacimiento = document.getElementById('fecha_nacimiento').value;
+            if (!fechaNacimiento) errores.push('Debe ingresar una fecha de nacimiento.');
+
+            const correo = document.getElementById('correo').value.trim();
+            if (!/\S+@\S+\.\S+/.test(correo)) errores.push('Debe ingresar un correo válido.');
+
+            const celular = document.getElementById('celular').value.trim();
+            if (!/^\d{10}$/.test(celular)) errores.push('El celular debe tener 10 dígitos.');
+
+            const direccion = document.getElementById('direccion').value.trim();
+            if (direccion.length < 5) errores.push('Debe ingresar el dato solicitado.');
+
+            const periodo = document.getElementById('periodo').value.trim();
+            if (!/^\d{4}-[1-2]$/.test(periodo)) errores.push('El periodo debe ser en el formato "2023-2".');
+
+            const carrera = document.getElementById('carrera').value.trim();
+            if (carrera.length < 3) errores.push('Debe ingresar el dato solicitado.');
+
+            if (!validarNumeroControl()) {
+                errores.push('El número de control no es válido.');
+            }
+
+            if (errores.length > 0) {
+                alert('Error:\n' + errores.join('\n'));
+            } else {
+                alert('Formulario valido.');
+                this.submit();
+            }
+        });
+    </script>
+</body>
+
+</html>
